@@ -1,5 +1,6 @@
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.gridlayout import GridLayout
 from kivy.uix.widget import Widget
 from kivy.uix.button import Button
 from kivy.uix.label import Label
@@ -48,7 +49,8 @@ def buildDispatch(product,params):
     except subprocess.CalledProcessError as err:
         print('Error: ',err)
         return err
-    
+
+
 class BuildRequester(BoxLayout):
     chkref = {}
     def on_checkbox_active(self,chkbox,value):
@@ -84,6 +86,9 @@ class BuildRequester(BoxLayout):
         
     def __init__(self, **kwargs):
         super(BuildRequester,self).__init__(**kwargs)
+
+        right = GridLayout(cols = 2)
+
         prods = [ 'P_200','P_008_z','P_007_y','P_003_x']
         texts = ['2','fw_2018_02_05','mybranch','dt_2018_02_08','mybranch']
         self.txts = []
@@ -91,11 +96,12 @@ class BuildRequester(BoxLayout):
             self.txts.append(TextInput(multiline=False, font_size=10, text=t))
         self.set_textinputs()
         for i in range(len(prods)):
-            self.add_widget(Label(text=prods[i],italic=True,bold=True,color=[0,1,1,4]))
+            right.add_widget(Label(text=prods[i],italic=True,bold=True,color=[0,1,1,4]))
             chkbox = CheckBox(group='1',color=[0.1,1,0,4])
             chkbox.bind(active=self.on_checkbox_active)
-            self.add_widget( chkbox)
+            right.add_widget( chkbox)
             self.chkref[chkbox]= prods[i]
+        self.add_widget(right)
 
 class MainApp(App):
     def build(self):
