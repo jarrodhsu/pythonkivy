@@ -97,7 +97,7 @@ class BuildRequester(BoxLayout):
         self.set_textinputs()
         for i in range(len(prods)):
             right.add_widget(Label(text=prods[i],italic=True,bold=True,color=[0,1,1,4]))
-            chkbox = CheckBox(group='1',color=[0.1,1,0,4])
+            chkbox = CheckBox(group='1',color=[0.5,5,0,4])
             chkbox.bind(active=self.on_checkbox_active)
             right.add_widget( chkbox)
             self.chkref[chkbox]= prods[i]
