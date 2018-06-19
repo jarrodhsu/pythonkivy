@@ -54,12 +54,16 @@ def buildDispatch(product,params):
 class BuildRequester(BoxLayout):
     chkref = {}
     def on_checkbox_active(self,chkbox,value):
-        self.ids.label2.text = 'Selected ' + self.chkref[chkbox]
-        self.product = self.chkref[chkbox]
+        if value:
+            self.ids.label2.text = 'Selected ' + self.chkref[chkbox]
+            self.product = self.chkref[chkbox]
+        else:
+            self.ids.label2.text = 'Not Selected'
+            self.product = None
     def cancel(self):
         for ckey in self.chkref:
             ckey.active = False
-        self.ids.label2.text = 'Unselected'            
+        self.ids.label2.text = 'Not Selected'            
     def buildParams(self):
         pinpts=[self.ids.mode_inpt,
                 self.ids.fw_tag_inpt,
